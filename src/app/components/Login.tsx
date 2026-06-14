@@ -1,22 +1,45 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Navigate } from 'react-router';
 import { Lock, User } from 'lucide-react';
+import { API_ENDPOINTS } from '../../config/api';
+import { auth } from '../../config/auth';
 
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  if (auth.isLoggedIn()) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    if (email === 'admin@tour.com' && password === 'admin123') {
-      localStorage.setItem('isAuthenticated', 'true');
+    try {
+      const response = await fetch(API_ENDPOINTS.login, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Invalid credentials');
+        return;
+      }
+
+      auth.login(data.token, data.user);
       navigate('/dashboard');
-    } else {
-      setError('Invalid email or password');
+    } catch {
+      setError('Unable to connect to the server. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,9 +56,7 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm mb-2">
-              Email Address
-            </label>
+            <label htmlFor="email" className="block text-sm mb-2">Email Address</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
@@ -44,16 +65,14 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="admin@tour.com"
+                placeholder="admin@example.com"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm mb-2">
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
@@ -76,15 +95,11 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-primary text-primary-foreground py-3 rounded-lg hover:opacity-90 transition-opacity"
+            disabled={loading}
+            className="w-full bg-primary text-primary-foreground py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Sign In
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
-
-          <div className="text-center text-sm text-muted-foreground">
-            <p>Demo credentials:</p>
-            <p>Email: admin@tour.com | Password: admin123</p>
-          </div>
         </form>
       </div>
     </div>

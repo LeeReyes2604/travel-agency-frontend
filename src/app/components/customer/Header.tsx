@@ -41,12 +41,6 @@ export default function Header() {
                 {link.label}
               </NavLink>
             ))}
-            <NavLink
-              to="/admin"
-              className="ml-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity text-sm"
-            >
-              Admin
-            </NavLink>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -83,13 +77,6 @@ export default function Header() {
                   {link.label}
                 </NavLink>
               ))}
-              <NavLink
-                to="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-              >
-                Admin Login
-              </NavLink>
             </div>
           </nav>
         )}
