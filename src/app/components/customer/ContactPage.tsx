@@ -228,9 +228,6 @@ export default function ContactPage() {
                 <a href="/packages" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
                   → Browse tour packages
                 </a>
-                <a href="/blog" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
-                  → Read travel tips & guides
-                </a>
                 <a href="/partnership" className="block text-muted-foreground hover:text-primary transition-colors text-sm">
                   → Partnership opportunities
                 </a>

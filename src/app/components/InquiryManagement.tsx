@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Search, Filter, Mail, Phone, Calendar, MapPin, Users, DollarSign, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
-import { API_ENDPOINTS } from '../../config/api';
+import { API_ENDPOINTS, getImageSrc } from '../../config/api';
 import { auth } from '../../config/auth';
+import { TravelPackage } from './customer/TravelPackageCard';
 
 interface Inquiry {
   id: number;
@@ -15,6 +16,8 @@ interface Inquiry {
   estimated_budget: string | null;
   notes: string | null;
   status: 'pending' | 'quoted' | 'confirmed' | 'cancelled';
+  travel_package_title: string | null;
+  travel_package_id: number | null;
   created_at: string;
 }
 
@@ -53,6 +56,9 @@ export default function InquiryManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<TravelPackage | null>(null);
+  const [packageLoading, setPackageLoading] = useState(false);
+  const [packageError, setPackageError] = useState('');
   const [updatingId, setUpdatingId] = useState<number | null>(null);
 
   const fetchInquiries = async (p: number) => {
@@ -63,6 +69,7 @@ export default function InquiryManagement() {
         headers: { Authorization: `Bearer ${auth.getToken()}` },
       });
       const data = await res.json();
+ 
       if (!res.ok) throw new Error(data.error || 'Failed to fetch inquiries');
       setInquiries(data.inquiries);
       setMeta(data.meta);
@@ -89,6 +96,7 @@ export default function InquiryManagement() {
         body: JSON.stringify({ inquiry: { status } }),
       });
       const data = await res.json();
+
       if (!res.ok) throw new Error(data.error || 'Failed to update status');
       setInquiries((prev) => prev.map((i) => (i.id === id ? data : i)));
       if (selectedInquiry?.id === id) setSelectedInquiry(data);
@@ -98,6 +106,36 @@ export default function InquiryManagement() {
       setUpdatingId(null);
     }
   };
+
+  const fetchTravelPackage = async (id: number) => {
+    setPackageLoading(true);
+    setPackageError('');
+    try {
+      const res = await fetch(API_ENDPOINTS.travelPackage(id), {
+        headers: { Authorization: `Bearer ${auth.getToken()}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch travel package');
+      return data.travel_package ?? data;
+    } catch (err: any) {
+      setPackageError(err.message);
+      return null;
+    } finally {
+      setPackageLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedInquiry?.travel_package_id) {
+      setSelectedPackage(null);
+      setPackageError('');
+      return;
+    }
+
+    fetchTravelPackage(selectedInquiry.travel_package_id).then((pkg) => {
+      setSelectedPackage(pkg);
+    });
+  }, [selectedInquiry]);
 
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this inquiry?')) return;
@@ -188,6 +226,7 @@ export default function InquiryManagement() {
               <thead className="bg-muted">
                 <tr>
                   <th className="text-left p-4">Customer</th>
+                  <th className="text-left p-4">Travel Package</th>
                   <th className="text-left p-4">Destination</th>
                   <th className="text-left p-4">Date Submitted</th>
                   <th className="text-left p-4">Status</th>
@@ -209,6 +248,11 @@ export default function InquiryManagement() {
                           <span>{inquiry.phone_number}</span>
                         </div>
                       )}
+                    </td>
+                    <td className="p-4">
+                      <div className="flex items-center gap-2 text-sm">
+                        <span>{inquiry.travel_package_title ?? '—'}</span>
+                      </div>
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-2 text-sm">
@@ -295,92 +339,143 @@ export default function InquiryManagement() {
               <button onClick={() => setSelectedInquiry(null)} className="text-muted-foreground hover:text-foreground">✕</button>
             </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm text-muted-foreground">Customer Name</label>
-                <p>{selectedInquiry.full_name}</p>
-              </div>
+            <div className={selectedInquiry.travel_package_id ? 'grid gap-6 lg:grid-cols-[360px_1fr]' : 'space-y-4'}>
+              {selectedInquiry.travel_package_id ? (
+                <div className="space-y-4">
+                  <div className="rounded-3xl overflow-hidden bg-slate-50 shadow-sm">
+                    {selectedPackage ? (
+                      <>
+                        {selectedPackage.image_url ? (
+                          <img
+                            src={getImageSrc(selectedPackage.image_url)}
+                            alt={selectedPackage.title}
+                            className="w-full h-56 object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-56 bg-muted flex items-center justify-center text-muted-foreground text-sm">
+                            No image
+                          </div>
+                        )}
+                        <div className="p-6">
+                          <h3 className="text-xl font-semibold mb-3">{selectedPackage.title}</h3>
+                          <p className="text-sm text-muted-foreground mb-4">{selectedPackage.destination}</p>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+                            <Users className="w-4 h-4" />
+                            <span>{selectedPackage.number_of_travelers} traveler{selectedPackage.number_of_travelers === 1 ? '' : 's'}</span>
+                          </div>
+                          {selectedPackage.show_price && (
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                              <DollarSign className="w-4 h-4" />
+                              <span>From ₱{parseFloat(selectedPackage.base_price).toLocaleString()}</span>
+                            </div>
+                          )}
+                          {selectedPackage.description && (
+                            <p className="text-sm text-muted-foreground leading-relaxed">{selectedPackage.description}</p>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="p-6">
+                        {packageLoading ? (
+                          <p className="text-sm text-muted-foreground">Loading package details…</p>
+                        ) : packageError ? (
+                          <p className="text-sm text-destructive">Unable to load package details.</p>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">No package details available.</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : null}
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-muted-foreground">Email</label>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-muted-foreground" />
-                    <p>{selectedInquiry.email}</p>
-                  </div>
+                  <label className="text-sm text-muted-foreground">Customer Name</label>
+                  <p>{selectedInquiry.full_name}</p>
                 </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">Phone</label>
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-muted-foreground" />
-                    <p>{selectedInquiry.phone_number ?? '—'}</p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-muted-foreground">Destination</label>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-muted-foreground" />
-                    <p>{selectedInquiry.destination ?? '—'}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-muted-foreground">Email</label>
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-muted-foreground" />
+                      <p>{selectedInquiry.email}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Phone</label>
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-muted-foreground" />
+                      <p>{selectedInquiry.phone_number ?? '—'}</p>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">Travelers</label>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-muted-foreground" />
-                    <p>{selectedInquiry.number_of_travelers ?? '—'}</p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-muted-foreground">Departure Date</label>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    <p>{formatDate(selectedInquiry.departure_date)}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-muted-foreground">Destination</label>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-muted-foreground" />
+                      <p>{selectedInquiry.destination ?? '—'}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Travelers</label>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-muted-foreground" />
+                      <p>{selectedInquiry.number_of_travelers ?? '—'}</p>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <label className="text-sm text-muted-foreground">Return Date</label>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    <p>{formatDate(selectedInquiry.return_date)}</p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-muted-foreground">Departure Date</label>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <p>{formatDate(selectedInquiry.departure_date)}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground">Return Date</label>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <p>{formatDate(selectedInquiry.return_date)}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {selectedInquiry.estimated_budget && (
-                <div>
-                  <label className="text-sm text-muted-foreground">Estimated Budget</label>
-                  <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-muted-foreground" />
-                    <p>₱{parseFloat(selectedInquiry.estimated_budget).toLocaleString()}</p>
+                {selectedInquiry.estimated_budget && (
+                  <div>
+                    <label className="text-sm text-muted-foreground">Estimated Budget</label>
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="w-4 h-4 text-muted-foreground" />
+                      <p>₱{parseFloat(selectedInquiry.estimated_budget).toLocaleString()}</p>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {selectedInquiry.notes && (
+                {selectedInquiry.notes && (
+                  <div>
+                    <label className="text-sm text-muted-foreground">Notes</label>
+                    <p className="bg-accent/50 p-4 rounded-lg text-sm">{selectedInquiry.notes}</p>
+                  </div>
+                )}
+
                 <div>
-                  <label className="text-sm text-muted-foreground">Notes</label>
-                  <p className="bg-accent/50 p-4 rounded-lg text-sm">{selectedInquiry.notes}</p>
+                  <label className="text-sm text-muted-foreground">Update Status</label>
+                  <select
+                    value={selectedInquiry.status}
+                    onChange={(e) => updateStatus(selectedInquiry.id, e.target.value as Inquiry['status'])}
+                    disabled={updatingId === selectedInquiry.id}
+                    className="w-full mt-1 px-4 py-2 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
+                  >
+                    {STATUS_OPTIONS.map((s) => (
+                      <option key={s} value={s}>{capitalize(s)}</option>
+                    ))}
+                  </select>
                 </div>
-              )}
-
-              <div>
-                <label className="text-sm text-muted-foreground">Update Status</label>
-                <select
-                  value={selectedInquiry.status}
-                  onChange={(e) => updateStatus(selectedInquiry.id, e.target.value as Inquiry['status'])}
-                  disabled={updatingId === selectedInquiry.id}
-                  className="w-full mt-1 px-4 py-2 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
-                >
-                  {STATUS_OPTIONS.map((s) => (
-                    <option key={s} value={s}>{capitalize(s)}</option>
-                  ))}
-                </select>
               </div>
             </div>
 

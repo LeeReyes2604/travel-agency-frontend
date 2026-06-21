@@ -1,55 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Search, Download, Mail, Calendar, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { API_ENDPOINTS } from '../../config/api';
+import { auth } from '../../config/auth';
+import { useAdminSubscribers, Subscriber } from '../hooks/useAdminSubscribers';
 
-interface Subscriber {
-  id: number;
-  email: string;
-  name: string;
-  subscribedDate: string;
-  status: 'Active' | 'Unsubscribed';
-}
-
-const initialSubscribers: Subscriber[] = [
-  { id: 1, email: 'alice.wonder@email.com', name: 'Alice Wonder', subscribedDate: '2026-05-15', status: 'Active' },
-  { id: 2, email: 'bob.builder@email.com', name: 'Bob Builder', subscribedDate: '2026-05-14', status: 'Active' },
-  { id: 3, email: 'carol.singer@email.com', name: 'Carol Singer', subscribedDate: '2026-05-12', status: 'Active' },
-  { id: 4, email: 'dan.cook@email.com', name: 'Dan Cook', subscribedDate: '2026-05-10', status: 'Unsubscribed' },
-  { id: 5, email: 'eve.dancer@email.com', name: 'Eve Dancer', subscribedDate: '2026-05-08', status: 'Active' },
-  { id: 6, email: 'frank.writer@email.com', name: 'Frank Writer', subscribedDate: '2026-05-05', status: 'Active' },
-  { id: 7, email: 'grace.artist@email.com', name: 'Grace Artist', subscribedDate: '2026-05-03', status: 'Active' },
-  { id: 8, email: 'henry.coder@email.com', name: 'Henry Coder', subscribedDate: '2026-05-01', status: 'Active' },
-  { id: 9, email: 'iris.teacher@email.com', name: 'Iris Teacher', subscribedDate: '2026-04-28', status: 'Unsubscribed' },
-  { id: 10, email: 'jack.pilot@email.com', name: 'Jack Pilot', subscribedDate: '2026-04-25', status: 'Active' },
-];
+const formatSubscriberDate = (value: string | number | null) => {
+  if (value === null || value === undefined || value === '') return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleString();
+};
 
 export default function SubscriberList() {
-  const [subscribers, setSubscribers] = useState<Subscriber[]>(initialSubscribers);
+  const [page, setPage] = useState(1);
+  const {
+    subscribers,
+    setSubscribers,
+    meta,
+    loading,
+    error,
+    exportSubscribers,
+    exportLoading,
+    unsubscribeExport,
+  } = useAdminSubscribers(page);
+
+  const [exportStatus, setExportStatus] = useState<'idle' | 'waiting'>('idle');
+  const [exportProgress, setExportProgress] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   const filteredSubscribers = subscribers.filter((subscriber) => {
     const matchesSearch =
-      subscriber.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (subscriber.name || '')
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       subscriber.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'All' || subscriber.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
-  const exportToCSV = () => {
-    const headers = ['Name', 'Email', 'Subscribed Date', 'Status'];
-    const rows = filteredSubscribers.map((s) => [s.name, s.email, s.subscribedDate, s.status]);
-    const csv = [headers, ...rows].map((row) => row.join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'subscribers.csv';
-    a.click();
-  };
+  const deleteSubscriber = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this subscriber?')) {
+      return;
+    }
 
-  const deleteSubscriber = (id: number) => {
-    if (confirm('Are you sure you want to delete this subscriber?')) {
+    try {
+      const token = auth.getToken();
+      if (!token) {
+        throw new Error('Admin authentication is required to delete subscribers.');
+      }
+
+      const response = await fetch(API_ENDPOINTS.adminSubscriber(id), {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Unable to delete subscriber.');
+      }
+
+      toast.success(data.message || 'Subscriber deleted.');
       setSubscribers((prev) => prev.filter((s) => s.id !== id));
+    } catch (error: any) {
+      toast.error(error?.message || 'Unable to delete subscriber.');
     }
   };
 
@@ -71,6 +95,7 @@ export default function SubscriberList() {
           </div>
           <p className="text-3xl">{subscribers.length}</p>
         </div>
+
         <div className="bg-card border border-border rounded-lg p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-chart-4/10 rounded-lg">
@@ -80,6 +105,7 @@ export default function SubscriberList() {
           </div>
           <p className="text-3xl">{subscribers.filter((s) => s.status === 'Active').length}</p>
         </div>
+
         <div className="bg-card border border-border rounded-lg p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-chart-2/10 rounded-lg">
@@ -113,13 +139,58 @@ export default function SubscriberList() {
             <option>Active</option>
             <option>Unsubscribed</option>
           </select>
-          <button
-            onClick={exportToCSV}
-            className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-          >
-            <Download className="w-5 h-5" />
-            <span>Export CSV</span>
-          </button>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={async () => {
+                try {
+                  setExportStatus('waiting');
+                  setExportProgress(null);
+
+                  await exportSubscribers((update: any) => {
+                    switch (update.status) {
+                      case 'started':
+                        toast.success(
+                          `Export started: ${update.filename || ''} (${update.total_rows ?? ''} rows)`,
+                          { duration: 3000 }
+                        );
+                        break;
+                      case 'progress':
+                        setExportProgress(update.rows_written ?? null);
+                        break;
+                      case 'completed':
+                        try {
+                          if (update.file_url) {
+                            window.open(update.file_url, '_blank');
+                            toast.success('Download started');
+                          }
+                        } catch (e) {}
+                        try {
+                          if (typeof unsubscribeExport === 'function') unsubscribeExport();
+                        } catch (e) {}
+                        setExportStatus('idle');
+                        break;
+                      case 'failed':
+                        try {
+                          if (typeof unsubscribeExport === 'function') unsubscribeExport();
+                        } catch (e) {}
+                        setExportStatus('idle');
+                        toast.error(update.error || 'Export failed');
+                        break;
+                    }
+                  });
+                } catch (err: any) {
+                  setExportStatus('idle');
+                  toast.error(err?.message || 'Export failed.');
+                }
+              }}
+              disabled={exportLoading || exportStatus === 'waiting'}
+              className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Download className="w-5 h-5" />
+              <span>{exportStatus === 'waiting' ? 'Please wait' : exportLoading ? 'Exporting…' : 'Export CSV'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -139,7 +210,7 @@ export default function SubscriberList() {
             <tbody className="divide-y divide-border">
               {filteredSubscribers.map((subscriber) => (
                 <tr key={subscriber.id} className="hover:bg-accent/50 transition-colors">
-                  <td className="p-4">{subscriber.name}</td>
+                  <td className="p-4">{subscriber.name || '—'}</td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       <Mail className="w-4 h-4 text-muted-foreground" />
@@ -149,7 +220,7 @@ export default function SubscriberList() {
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-muted-foreground" />
-                      <span>{subscriber.subscribedDate}</span>
+                      <span>{formatSubscriberDate(subscriber.subscribedDate)}</span>
                     </div>
                   </td>
                   <td className="p-4">
@@ -180,10 +251,34 @@ export default function SubscriberList() {
 
         {filteredSubscribers.length === 0 && (
           <div className="text-center py-12 text-muted-foreground">
-            No subscribers found matching your criteria.
+            {loading ? 'Loading subscribers…' : 'No subscribers found matching your criteria.'}
           </div>
         )}
       </div>
+
+      {meta && (
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <div className="text-sm text-muted-foreground">
+            Page {meta.current_page} of {meta.total_pages}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(meta.prev_page || 1)}
+              disabled={!meta.prev_page}
+              className="px-4 py-2 bg-card border border-border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setPage(meta.next_page || meta.current_page)}
+              disabled={!meta.next_page}
+              className="px-4 py-2 bg-card border border-border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

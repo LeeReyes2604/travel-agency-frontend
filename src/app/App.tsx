@@ -3,7 +3,7 @@ import CustomerLayout from './components/customer/CustomerLayout';
 import HomePage from './components/customer/HomePage';
 import AboutPage from './components/customer/AboutPage';
 import PackagesPage from './components/customer/PackagesPage';
-import BlogPage from './components/customer/BlogPage';
+import PackageDetailPage from './components/customer/PackageDetailPage';
 import PartnershipPage from './components/customer/PartnershipPage';
 import ContactPage from './components/customer/ContactPage';
 import Login from './components/Login';
@@ -24,7 +24,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="packages" element={<PackagesPage />} />
-          <Route path="blog" element={<BlogPage />} />
+          <Route path="packages/:id" element={<PackageDetailPage />} />
           <Route path="partnership" element={<PartnershipPage />} />
           <Route path="contact" element={<ContactPage />} />
         </Route>

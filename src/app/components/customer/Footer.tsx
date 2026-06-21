@@ -1,15 +1,42 @@
 import { useState } from 'react';
 import { Plane, Mail, Facebook, Instagram, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import { API_ENDPOINTS } from '../../../config/api';
 
 export default function Footer() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      toast.success('Thank you for subscribing to our newsletter!');
+    setLoading(true);
+
+    try {
+      const response = await fetch(API_ENDPOINTS.createSubscriber, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          ...(name.trim() ? { name: name.trim() } : {}),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const message = data?.error || data?.errors?.[0] || 'Unable to subscribe. Please check your input.';
+        toast.error(message);
+        return;
+      }
+
+      toast.success('Thanks for subscribing!');
+      setName('');
       setEmail('');
+    } catch (error) {
+      toast.error('The subscription request failed. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,11 +101,6 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/blog" className="hover:text-primary-foreground transition-colors">
-                  Travel Blog
-                </a>
-              </li>
-              <li>
                 <a href="/partnership" className="hover:text-primary-foreground transition-colors">
                   Partnership Opportunities
                 </a>
@@ -97,23 +119,43 @@ export default function Footer() {
             <p className="text-primary-foreground/80 mb-4 text-sm">
               Get exclusive travel deals and updates delivered to your inbox.
             </p>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
-              <div className="relative flex-1">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-foreground/60" />
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <div>
+                <label htmlFor="subscriber-name" className="sr-only">
+                  Name (optional)
+                </label>
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email address"
-                  className="w-full pl-10 pr-4 py-2 bg-primary-foreground/10 border border-primary-foreground/20 rounded-lg text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30"
-                  required
+                  id="subscriber-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name (optional)"
+                  className="w-full px-4 py-3 bg-primary-foreground/10 border border-primary-foreground/20 rounded-lg text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30"
                 />
+              </div>
+              <div>
+                <label htmlFor="subscriber-email" className="sr-only">
+                  Email address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-foreground/60" />
+                  <input
+                    id="subscriber-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    className="w-full pl-10 pr-4 py-3 bg-primary-foreground/10 border border-primary-foreground/20 rounded-lg text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30"
+                    required
+                  />
+                </div>
               </div>
               <button
                 type="submit"
-                className="px-4 py-2 bg-primary-foreground text-primary rounded-lg hover:opacity-90 transition-opacity"
+                disabled={loading}
+                className="w-full px-4 py-3 bg-primary-foreground text-primary rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Subscribe
+                {loading ? 'Subscribing…' : 'Subscribe'}
               </button>
             </form>
           </div>

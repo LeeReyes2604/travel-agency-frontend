@@ -10,14 +10,15 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { auth } from '../../config/auth';
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    navigate('/');
+    auth.logout();
+    navigate('/admin');
   };
 
   const navItems = [

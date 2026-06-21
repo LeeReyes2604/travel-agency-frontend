@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router';
 import { MapPin, Star, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import InquiryForm from './InquiryForm';
 import TravelPackageCard, { TravelPackage } from './TravelPackageCard';
-import TravelPackageModal from './TravelPackageModal';
 import { useTravelPackages } from '../../hooks/useTravelPackages';
 
 const promos = [
@@ -21,8 +21,8 @@ const promos = [
 ];
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const { packages, loading, error } = useTravelPackages(1);
-  const [selectedPackage, setSelectedPackage] = useState<TravelPackage | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -63,7 +63,7 @@ export default function HomePage() {
       </div>
 
       {/* Promo Banners */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {promos.map((promo) => (
             <div key={promo.id} className={`${promo.bgColor} p-6 rounded-lg border border-border shadow-lg`}>
@@ -85,7 +85,7 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-4xl mb-4">Best-Selling Packages</h2>
+            <h2 className="text-4xl mb-4">Tour Packages</h2>
             <p className="text-xl text-muted-foreground">
               Explore our most popular travel packages curated just for you
             </p>
@@ -130,7 +130,7 @@ export default function HomePage() {
               <TravelPackageCard
                 key={pkg.id}
                 package={pkg}
-                onViewDetails={setSelectedPackage}
+                onViewDetails={() => navigate(`/packages/${pkg.id}`)}
               />
             ))}
           </div>
@@ -186,13 +186,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Package Modal */}
-      {selectedPackage && (
-        <TravelPackageModal
-          package={selectedPackage}
-          onClose={() => setSelectedPackage(null)}
-        />
-      )}
     </div>
   );
 }
