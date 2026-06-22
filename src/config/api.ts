@@ -19,8 +19,6 @@ export const API_ENDPOINTS = {
   adminPromo: (id: number) => `${API_BASE_URL}/api/v1/admin/promos/${id}`,
   clientPromos: (page = 1) => `${API_BASE_URL}/api/v1/promos?page=${page}`,
   clientPromo: (id: number) => `${API_BASE_URL}/api/v1/promos/${id}`,
-  adminContact: `${API_BASE_URL}/api/v1/admin/contact`,
-  clientContact: `${API_BASE_URL}/api/v1/contact`,
   clientTravelPackages: `${API_BASE_URL}/api/v1/travel_packages`,
   clientTravelPackage: (id: number) => `${API_BASE_URL}/api/v1/travel_packages/${id}`,
   clientTravelPackageInquire: (id: number) => `${API_BASE_URL}/api/v1/travel_packages/${id}/inquire`,

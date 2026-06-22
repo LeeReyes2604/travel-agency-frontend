@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Clock, Edit, Mail, MapPin, Megaphone, Phone, Plus, Trash2 } from 'lucide-react';
+import { Edit,  Megaphone, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
-import NestedFormInput from './NestedFormInput';
 
 interface Meta {
   current_page: number;
@@ -22,78 +21,34 @@ interface Promo {
   updated_at?: string;
 }
 
-interface KeyValueItem {
-  key?: string;
-  value: string;
-}
 
-interface Contact {
-  id: number;
-  address: string;
-  google_maps_url: string | null;
-  phone_numbers: KeyValueItem[];
-  emails: KeyValueItem[];
-  business_hours: KeyValueItem[];
-  created_at?: string;
-  updated_at?: string;
-}
-
-interface ContactNestedFormLimits {
-  phone_numbers?: number;
-  emails?: number;
-  business_hours?: number;
-}
-
-type Tab = 'promos' | 'contacts';
+type Tab = 'promos';
 
 const keyValueColumns = [
   { name: 'key', label: 'Label', type: 'text' as const, placeholder: 'Main' },
   { name: 'value', label: 'Value', type: 'text' as const, required: true, placeholder: 'Value' },
 ];
 
-const normalizeRows = (rows: Record<string, any>[]) =>
-  rows
-    .map((row) => ({
-      key: String(row.key || '').trim(),
-      value: String(row.value || '').trim(),
-    }))
-    .filter((row) => row.value);
 
 const authHeaders = () => ({
   'Content-Type': 'application/json',
   Authorization: `Bearer ${auth.getToken()}`,
 });
 
-const normalizeContactResponse = (data: any): { contact: Contact; limits: ContactNestedFormLimits } => ({
-  contact: data.contact ?? data,
-  limits: data.nested_form_limits ?? data.form_limits ?? data.contact?.nested_form_limits ?? {},
-});
-
 export default function ContentManagement() {
   const [activeTab, setActiveTab] = useState<Tab>('promos');
   const [promos, setPromos] = useState<Promo[]>([]);
-  const [contact, setContact] = useState<Contact | null>(null);
-  const [contactFormLimits, setContactFormLimits] = useState<ContactNestedFormLimits>({});
   const [promoMeta, setPromoMeta] = useState<Meta | null>(null);
   const [promoPage, setPromoPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const [promoModalOpen, setPromoModalOpen] = useState(false);
-  const [contactModalOpen, setContactModalOpen] = useState(false);
   const [editingPromo, setEditingPromo] = useState<Promo | null>(null);
 
   const [promoFormData, setPromoFormData] = useState<Omit<Promo, 'id'>>({
     title: '',
     details: '',
     active: true,
-  });
-
-  const [contactFormData, setContactFormData] = useState<Omit<Contact, 'id'>>({
-    address: '',
-    google_maps_url: '',
-    phone_numbers: [],
-    emails: [],
-    business_hours: [],
   });
 
   const fetchPromos = async (page = promoPage) => {
@@ -113,31 +68,9 @@ export default function ContentManagement() {
     }
   };
 
-  const fetchContact = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(API_ENDPOINTS.adminContact, {
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Unable to load contact.');
-      const normalized = normalizeContactResponse(data);
-      setContact(normalized.contact);
-      setContactFormLimits(normalized.limits);
-    } catch (error: any) {
-      toast.error(error?.message || 'Unable to load contact.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     fetchPromos(promoPage);
   }, [promoPage]);
-
-  useEffect(() => {
-    fetchContact();
-  }, []);
 
   const openAddPromoModal = () => {
     setEditingPromo(null);
@@ -153,17 +86,6 @@ export default function ContentManagement() {
       active: promo.active,
     });
     setPromoModalOpen(true);
-  };
-
-  const openEditContactModal = (contact: Contact) => {
-    setContactFormData({
-      address: contact.address,
-      google_maps_url: contact.google_maps_url || '',
-      phone_numbers: contact.phone_numbers || [],
-      emails: contact.emails || [],
-      business_hours: contact.business_hours || [],
-    });
-    setContactModalOpen(true);
   };
 
   const handlePromoSubmit = async (e: React.FormEvent) => {
@@ -184,34 +106,6 @@ export default function ContentManagement() {
       fetchPromos(promoPage);
     } catch (error: any) {
       toast.error(error?.message || 'Unable to save promo.');
-    }
-  };
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const payload = {
-      ...contactFormData,
-      google_maps_url: contactFormData.google_maps_url || null,
-      phone_numbers: normalizeRows(contactFormData.phone_numbers),
-      emails: normalizeRows(contactFormData.emails),
-      business_hours: normalizeRows(contactFormData.business_hours),
-    };
-
-    try {
-      const response = await fetch(API_ENDPOINTS.adminContact, {
-        method: 'PATCH',
-        headers: authHeaders(),
-        body: JSON.stringify({ contact: payload }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Unable to save contact.');
-      toast.success('Contact updated.');
-      const normalized = normalizeContactResponse(data);
-      setContact(normalized.contact);
-      setContactFormLimits(normalized.limits);
-      setContactModalOpen(false);
-    } catch (error: any) {
-      toast.error(error?.message || 'Unable to save contact.');
     }
   };
 
@@ -249,17 +143,6 @@ export default function ContentManagement() {
         >
           <Megaphone className="w-5 h-5" />
           <span>Homepage Promos</span>
-        </button>
-        <button
-          onClick={() => setActiveTab('contacts')}
-          className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${
-            activeTab === 'contacts'
-              ? 'border-primary text-primary'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <Phone className="w-5 h-5" />
-          <span>Contacts</span>
         </button>
       </div>
 
@@ -344,55 +227,6 @@ export default function ContentManagement() {
           )}
         </div>
       )}
-
-      {activeTab === 'contacts' && (
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-muted-foreground">Public contact page information</p>
-            {contact && (
-              <button
-                onClick={() => openEditContactModal(contact)}
-                className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-              >
-                <Edit className="w-5 h-5" />
-                <span>Edit Contact</span>
-              </button>
-            )}
-          </div>
-
-          {loading && !contact ? (
-            <div className="py-20 text-center text-muted-foreground">Loading contact...</div>
-          ) : !contact ? (
-            <div className="py-20 text-center text-muted-foreground">No seeded contact found.</div>
-          ) : (
-            <div className="bg-card border border-border rounded-lg p-6">
-              <div className="flex items-start gap-2 mb-6">
-                <MapPin className="w-5 h-5 text-primary mt-1" />
-                <div>
-                  <h3>{contact.address}</h3>
-                  {contact.google_maps_url && (
-                    <a
-                      href={contact.google_maps_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Open Google Maps
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <ContactList icon={<Phone className="w-4 h-4" />} title="Phone Numbers" items={contact.phone_numbers} />
-                <ContactList icon={<Mail className="w-4 h-4" />} title="Emails" items={contact.emails} />
-                <ContactList icon={<Clock className="w-4 h-4" />} title="Business Hours" items={contact.business_hours} />
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
       {promoModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-card border border-border rounded-lg max-w-2xl w-full p-6">
@@ -464,132 +298,6 @@ export default function ContentManagement() {
           </div>
         </div>
       )}
-
-      {contactModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-card border border-border rounded-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h2>Edit Contact</h2>
-              <button onClick={() => setContactModalOpen(false)} className="text-muted-foreground hover:text-foreground">
-                x
-              </button>
-            </div>
-
-            <form onSubmit={handleContactSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="contact-address" className="block text-sm mb-2">
-                  Address
-                </label>
-                <textarea
-                  id="contact-address"
-                  value={contactFormData.address}
-                  onChange={(e) => setContactFormData({ ...contactFormData, address: e.target.value })}
-                  rows={3}
-                  className="w-full px-4 py-3 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="contact-google-maps-url" className="block text-sm mb-2">
-                  Google Maps URL
-                </label>
-                <input
-                  id="contact-google-maps-url"
-                  type="url"
-                  value={contactFormData.google_maps_url || ''}
-                  onChange={(e) => setContactFormData({ ...contactFormData, google_maps_url: e.target.value })}
-                  className="w-full px-4 py-3 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
-                  placeholder="https://maps.google.com/..."
-                />
-              </div>
-
-              <NestedFormInput
-                label="Phone Numbers"
-                columns={keyValueColumns}
-                value={contactFormData.phone_numbers}
-                minRows={0}
-                maxRows={contactFormLimits.phone_numbers}
-                addButtonLabel="Add Phone Number"
-                onChange={(phone_numbers) => setContactFormData({ ...contactFormData, phone_numbers: phone_numbers as KeyValueItem[] })}
-              />
-
-              <NestedFormInput
-                label="Emails"
-                columns={[
-                  keyValueColumns[0],
-                  { ...keyValueColumns[1], type: 'email' as const, placeholder: 'info@example.com' },
-                ]}
-                value={contactFormData.emails}
-                minRows={0}
-                maxRows={contactFormLimits.emails}
-                addButtonLabel="Add Email"
-                onChange={(emails) => setContactFormData({ ...contactFormData, emails: emails as KeyValueItem[] })}
-              />
-
-              <NestedFormInput
-                label="Business Hours"
-                columns={[
-                  { ...keyValueColumns[0], placeholder: 'Monday-Friday' },
-                  { ...keyValueColumns[1], placeholder: '9:00 AM - 6:00 PM' },
-                ]}
-                value={contactFormData.business_hours}
-                minRows={0}
-                maxRows={contactFormLimits.business_hours}
-                addButtonLabel="Add Business Hours"
-                onChange={(business_hours) => setContactFormData({ ...contactFormData, business_hours: business_hours as KeyValueItem[] })}
-              />
-
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setContactModalOpen(false)}
-                  className="flex-1 px-4 py-3 bg-secondary text-secondary-foreground rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  Update Contact
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ContactList({
-  icon,
-  title,
-  items,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  items: KeyValueItem[];
-}) {
-  return (
-    <div>
-      <div className="flex items-center gap-2 mb-3 text-muted-foreground">
-        {icon}
-        <p className="text-sm">{title}</p>
-      </div>
-      <div className="space-y-2">
-        {items?.length ? (
-          items.map((item, index) => (
-            <p key={`${item.key}-${item.value}-${index}`} className="text-sm">
-              {item.key ? <span className="text-muted-foreground">{item.key}: </span> : null}
-              {item.value}
-            </p>
-          ))
-        ) : (
-          <p className="text-sm text-muted-foreground">No entries</p>
-        )}
-      </div>
     </div>
   );
 }
