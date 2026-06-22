@@ -47,7 +47,7 @@ export default function HomePage() {
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-4xl">
             <h1 className="text-5xl md:text-6xl text-primary-foreground mb-6">
-              hi trippings tripieeeeeee
+              Your Dream Vacation Starts Here
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8">
               Discover unforgettable destinations with Tripie Travel & Tours
@@ -85,7 +85,7 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-4xl mb-4">Tour Packages</h2>
+            <h2 className="text-4xl mb-4 text-[#145889]">Tour Packages</h2>
             <p className="text-xl text-muted-foreground">
               Explore our most popular travel packages curated just for you
             </p>
@@ -93,13 +93,13 @@ export default function HomePage() {
           <div className="flex gap-2">
             <button
               onClick={scrollLeft}
-              className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors"
+              className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors text-[#145889]"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollRight}
-              className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors"
+              className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors text-[#145889]"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -147,7 +147,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Form Card: Exact same blue shade for background and text cascading down */}
+          {/* Form Card */}
           <div className="bg-[#145889] text-[#145889] p-8 md:p-10 rounded-xl border border-border shadow-xl">
             <InquiryForm />
           </div>
@@ -157,14 +157,14 @@ export default function HomePage() {
       {/* Why Choose Us */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl mb-4">Why Choose Tripie Travel & Tours?</h2>
+          <h2 className="text-4xl mb-4 text-[#145889]">Why Choose Tripie Travel & Tours?</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-1/10 rounded-full mb-4">
               <Star className="w-8 h-8 text-chart-1" />
             </div>
-            <h3 className="mb-3">Expert Travel Planners</h3>
+            <h3 className="text-[#145889] mb-3 font-medium">Expert Travel Planners</h3>
             <p className="text-muted-foreground">
               Our experienced team has been creating unforgettable journeys for over 10 years
             </p>
@@ -173,7 +173,7 @@ export default function HomePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-2/10 rounded-full mb-4">
               <TrendingUp className="w-8 h-8 text-chart-2" />
             </div>
-            <h3 className="mb-3">Best Price Guarantee</h3>
+            <h3 className="text-[#145889] mb-3 font-medium">Best Price Guarantee</h3>
             <p className="text-muted-foreground">
               We offer competitive prices and exclusive deals you won't find anywhere else
             </p>
@@ -182,7 +182,7 @@ export default function HomePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-4/10 rounded-full mb-4">
               <MapPin className="w-8 h-8 text-chart-4" />
             </div>
-            <h3 className="mb-3">24/7 Support</h3>
+            <h3 className="text-[#145889] mb-3 font-medium">24/7 Support</h3>
             <p className="text-muted-foreground">
               Our support team is always available to assist you before, during, and after your trip
             </p>
