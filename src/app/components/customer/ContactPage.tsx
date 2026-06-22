@@ -104,11 +104,11 @@ export default function ContactPage() {
               <div className="text-center">
                 <MapPin className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">
-                  123 Travel Street, Suite 456<br />
-                  New York, NY 10001
+                  1st Level One Mall Valenzuela Lower Ground Floor  <br />Puregold Paso de Blas Valenzuela city, Valenzuela, Philippines<br />
+                  
                 </p>
                 <a
-                  href="https://maps.google.com"
+                  href="https://www.google.com/maps/search/-1st+Level+One+Mall+Valenzuela+Lower+Ground+Floor++-+Puregold+Paso+de+Blas+Valenzuela+city,+Valenzuela,+Philippines/@14.6976777,120.9615436,7496m/data=!3m2!1e3!4b1?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block mt-4 px-6 py-2 bg-[#145889] text-white rounded-lg hover:opacity-90 transition-opacity"
