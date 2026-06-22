@@ -54,10 +54,8 @@ export default function ContactPage() {
               <Phone className="w-7 h-7 text-chart-2" />
             </div>
             <h3 className="text-[#145889] mb-2 font-semibold">Phone Numbers</h3>
-            <p className="text-muted-foreground text-sm">
-              Main: +1 (555) 123-4567<br />
-              Toll Free: 1-800-TRIPIE<br />
-              Emergency: +1 (555) 999-0000
+            <p className="text-muted-foreground text-sm">               
+              0917 134 2516
             </p>
           </div>
 
@@ -67,9 +65,7 @@ export default function ContactPage() {
             </div>
             <h3 className="text-[#145889] mb-2 font-semibold">Email Addresses</h3>
             <p className="text-muted-foreground text-sm">
-              General: info@tripietravel.com<br />
-              Sales: sales@tripietravel.com<br />
-              Support: support@tripietravel.com
+              tripietravelandtours@gmail.com
             </p>
           </div>
 
@@ -79,10 +75,10 @@ export default function ContactPage() {
             </div>
             <h3 className="text-[#145889] mb-2 font-semibold">Business Hours</h3>
             <p className="text-muted-foreground text-sm">
-              Monday - Friday<br />
-              9:00 AM - 6:00 PM EST<br />
+              Monday - Sunday<br />
+              10:00 AM - 9:00 PM EST<br />
               <br />
-              24/7 Emergency Support
+              
             </p>
           </div>
         </div>
@@ -130,9 +126,7 @@ export default function ContactPage() {
               <a href="/packages" className="block text-muted-foreground hover:text-[#145889] transition-colors text-sm">
                 → Browse tour packages
               </a>
-              <a href="/partnership" className="block text-muted-foreground hover:text-[#145889] transition-colors text-sm">
-                → Partnership opportunities
-              </a>
+              
             </div>
           </div>
         </div>
