@@ -44,10 +44,8 @@ export default function ContactPage() {
             </div>
             <h3 className="text-[#145889] mb-2 font-semibold">Office Address</h3>
             <p className="text-muted-foreground text-sm">
-              123 Travel Street<br />
-              Suite 456<br />
-              New York, NY 10001<br />
-              United States
+             1st Level One Mall Valenzuela Lower Ground Floor
+             Puregold Paso de Blas Valenzuela city, Valenzuela, Philippines
             </p>
           </div>
 
