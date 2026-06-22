@@ -8,7 +8,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl mb-6">About Tripie Travel & Tours</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Creating unforgettable travel experiences and turning your dream vacations into reality since 2014
+            Creating unforgettable travel experiences and turning your dream vacations into reality since 2017
           </p>
         </div>
       </div>
