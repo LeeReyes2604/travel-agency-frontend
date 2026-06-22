@@ -9,7 +9,6 @@ export default function Header() {
     { label: 'Home', path: '/' },
     { label: 'Tour Packages', path: '/packages' },
     { label: 'About Us', path: '/about' },
-    { label: 'Partnership', path: '/partnership' },
     { label: 'Contact', path: '/contact' },
   ];
 

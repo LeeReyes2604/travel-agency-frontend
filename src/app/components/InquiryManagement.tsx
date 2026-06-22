@@ -61,11 +61,11 @@ export default function InquiryManagement() {
   const [packageError, setPackageError] = useState('');
   const [updatingId, setUpdatingId] = useState<number | null>(null);
 
-  const fetchInquiries = async (p: number) => {
+  const fetchInquiries = async (p: number, search = searchTerm) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_ENDPOINTS.adminInquiries}?page=${p}`, {
+      const res = await fetch(API_ENDPOINTS.adminInquiriesList(p, search), {
         headers: { Authorization: `Bearer ${auth.getToken()}` },
       });
       const data = await res.json();
@@ -81,8 +81,8 @@ export default function InquiryManagement() {
   };
 
   useEffect(() => {
-    fetchInquiries(page);
-  }, [page]);
+    fetchInquiries(page, searchTerm);
+  }, [page, searchTerm]);
 
   const updateStatus = async (id: number, status: Inquiry['status']) => {
     setUpdatingId(id);
@@ -158,12 +158,8 @@ export default function InquiryManagement() {
   };
 
   const filteredInquiries = inquiries.filter((inquiry) => {
-    const matchesSearch =
-      inquiry.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inquiry.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (inquiry.destination?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
     const matchesStatus = statusFilter === 'All' || inquiry.status === statusFilter.toLowerCase();
-    return matchesSearch && matchesStatus;
+    return matchesStatus;
   });
 
   return (
@@ -184,7 +180,10 @@ export default function InquiryManagement() {
               type="text"
               placeholder="Search by name, email, or destination..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setPage(1);
+              }}
               className="w-full pl-10 pr-4 py-3 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>

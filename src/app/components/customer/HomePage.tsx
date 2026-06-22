@@ -1,29 +1,38 @@
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { MapPin, Star, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import InquiryForm from './InquiryForm';
-import TravelPackageCard, { TravelPackage } from './TravelPackageCard';
+import TravelPackageCard from './TravelPackageCard';
 import { useTravelPackages } from '../../hooks/useTravelPackages';
+import { API_ENDPOINTS } from '../../../config/api';
 
-const promos = [
-  {
-    id: 1,
-    title: 'Summer Sale - Save 20%',
-    description: 'Book any international package before June 30th!',
-    bgColor: 'bg-gradient-to-r from-chart-1/20 to-chart-2/20',
-  },
-  {
-    id: 2,
-    title: 'Early Bird Special',
-    description: 'Reserve your 2027 trip now and get exclusive pricing.',
-    bgColor: 'bg-gradient-to-r from-chart-3/20 to-chart-4/20',
-  },
-];
+interface Promo {
+  id: number;
+  title: string;
+  details: string;
+  active: boolean;
+}
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { packages, loading, error } = useTravelPackages(1);
+  const [promos, setPromos] = useState<Promo[]>([]);
   const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchPromos = async () => {
+      try {
+        const response = await fetch(API_ENDPOINTS.clientPromos());
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Failed to load promos');
+        setPromos(data.promos || []);
+      } catch (error) {
+        setPromos([]);
+      }
+    };
+
+    fetchPromos();
+  }, []);
 
   const scrollLeft = () => {
     sliderRef.current?.scrollBy({ left: -300, behavior: 'smooth' });
@@ -62,24 +71,32 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Promo Banners */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {promos.map((promo) => (
-            <div key={promo.id} className={`${promo.bgColor} p-6 rounded-lg border border-border shadow-lg`}>
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="mb-2">{promo.title}</h3>
-                  <p className="text-muted-foreground">{promo.description}</p>
+      {promos.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            {promos.map((promo, index) => (
+              <div
+                key={promo.id}
+                className={`${
+                  index % 2 === 0
+                    ? 'bg-gradient-to-r from-chart-1/20 to-chart-2/20'
+                    : 'bg-gradient-to-r from-chart-3/20 to-chart-4/20'
+                } p-6 rounded-lg border border-border shadow-lg`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <TrendingUp className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="mb-2">{promo.title}</h3>
+                    <p className="text-muted-foreground">{promo.details}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Travel Packages Swiper */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

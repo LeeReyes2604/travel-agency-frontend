@@ -14,6 +14,7 @@ const formatSubscriberDate = (value: string | number | null) => {
 
 export default function SubscriberList() {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
   const {
     subscribers,
     setSubscribers,
@@ -23,11 +24,10 @@ export default function SubscriberList() {
     exportSubscribers,
     exportLoading,
     unsubscribeExport,
-  } = useAdminSubscribers(page);
+  } = useAdminSubscribers(page, searchTerm);
 
   const [exportStatus, setExportStatus] = useState<'idle' | 'waiting'>('idle');
   const [exportProgress, setExportProgress] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
 
   useEffect(() => {
@@ -37,13 +37,8 @@ export default function SubscriberList() {
   }, [error]);
 
   const filteredSubscribers = subscribers.filter((subscriber) => {
-    const matchesSearch =
-      (subscriber.name || '')
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      subscriber.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'All' || subscriber.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    return matchesStatus;
   });
 
   const deleteSubscriber = async (id: number) => {
@@ -126,7 +121,10 @@ export default function SubscriberList() {
               type="text"
               placeholder="Search by name or email..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setPage(1);
+              }}
               className="w-full pl-10 pr-4 py-3 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>

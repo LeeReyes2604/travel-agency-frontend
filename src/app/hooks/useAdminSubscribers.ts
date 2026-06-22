@@ -29,7 +29,7 @@ const normalizeSubscriber = (subscriber: any): Subscriber => ({
   status: subscriber.status === 'Unsubscribed' ? 'Unsubscribed' : 'Active',
 });
 
-export function useAdminSubscribers(page = 1) {
+export function useAdminSubscribers(page = 1, search = '') {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [meta, setMeta] = useState<PaginationMeta | null>(null);
   const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ export function useAdminSubscribers(page = 1) {
           throw new Error('Admin authentication is required to load subscribers.');
         }
 
-        const response = await fetch(API_ENDPOINTS.adminSubscribers(page), {
+        const response = await fetch(API_ENDPOINTS.adminSubscribers(page, search), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -71,7 +71,7 @@ export function useAdminSubscribers(page = 1) {
     };
 
     fetchSubscribers();
-  }, [page]);
+  }, [page, search]);
 
   const exportSubscribers = async (onUpdate?: (update: any) => void) => {
     setExportLoading(true);

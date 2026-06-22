@@ -25,7 +25,6 @@ export default function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="packages" element={<PackagesPage />} />
           <Route path="packages/:id" element={<PackageDetailPage />} />
-          <Route path="partnership" element={<PartnershipPage />} />
           <Route path="contact" element={<ContactPage />} />
         </Route>
 
