@@ -19,15 +19,22 @@ export default function AboutPage() {
           <div>
             <h2 className="text-4xl mb-6">Our Story</h2>
             <div className="space-y-4 text-muted-foreground">
-              <p>
-                Tripie Travel & Tours was founded in 2014 with a simple yet powerful vision: to make world-class travel experiences accessible to everyone. What started as a small travel agency with just three passionate travel enthusiasts has grown into a trusted name in the tourism industry.
-              </p>
-              <p>
-                Over the years, we've helped thousands of travelers discover the beauty of destinations around the globe. From pristine beaches to bustling cities, from serene mountains to vibrant cultural hotspots, we've curated experiences that create lasting memories.
-              </p>
-              <p>
-                Our team of dedicated travel experts brings decades of combined experience in crafting personalized itineraries, negotiating the best rates, and ensuring every detail of your journey is perfectly planned.
-              </p>
+              <p> Tripie Travel and Tours was established and registered as a business in
+              September 2017 due to growing demands. In 2019, we kept moving forward
+              to support our partners and clients in surviving and growing their
+              businesses amid the crisis.</p> 
+
+              <p> As a growing travel agency, we cater to the needs of travelers who want to
+              enjoy the natural beauty of other countries and tourist spots here in the
+              Philippines. As well as catering for business purposes and companies.</p> 
+
+              <p> Tripie Travel and Tours is a trusted partner for incentive activities with
+              business partners. We are ready to serve our customers’ travel needs, both
+              inbound and outbound tours. </p> 
+
+              <p> It is a part of our commitment to keep maintaining and improving our
+              services, customer satisfaction, and customer confidence.</p> 
+
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
