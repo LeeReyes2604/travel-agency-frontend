@@ -41,7 +41,7 @@ export default function HomePage() {
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
             backgroundImage:
-              'url(https://images.unsplash.com/photo-1535262412227-85541e910204?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHx0cm9waWNhbCUyMGJlYWNoJTIwcGFyYWRpc2UlMjB2YWNhdGlvbnxlbnwxfHx8fDE3Nzk1MzM5MTF8MA&ixlib=rb-4.1.0&q=80&w=1080)',
+              'url(https://cdn.corenexis.com/f/2DyzVy6dPTl.jpg)',
           }}
         />
         <div className="relative h-full flex items-center justify-center text-center px-4">
