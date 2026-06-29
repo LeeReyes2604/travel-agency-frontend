@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, MapPin, DollarSign, Users, ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
+import { createHeaders } from "../../config/header";
 
 interface TravelPackage {
   id: number;
@@ -79,7 +80,7 @@ export default function PackageManagement() {
     setError('');
     try {
       const res = await fetch(`${API_ENDPOINTS.travelPackages}?page=${p}`, {
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
+        headers: createHeaders(),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to fetch packages');
@@ -145,10 +146,7 @@ export default function PackageManagement() {
 
       const res = await fetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${auth.getToken()}`,
-        },
+        headers: createHeaders(),
         body: JSON.stringify(payload),
       });
 
@@ -169,7 +167,7 @@ export default function PackageManagement() {
     try {
       const res = await fetch(API_ENDPOINTS.travelPackage(id), {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
+        headers: createHeaders(),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to delete');

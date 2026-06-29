@@ -3,6 +3,7 @@ import { Search, Filter, Mail, Phone, Calendar, MapPin, Users, DollarSign, Chevr
 import { API_ENDPOINTS, getImageSrc } from '../../config/api';
 import { auth } from '../../config/auth';
 import { TravelPackage } from './customer/TravelPackageCard';
+import { createHeaders } from "../../config/header";
 
 interface Inquiry {
   id: number;
@@ -66,8 +67,7 @@ export default function InquiryManagement() {
     setError('');
     try {
       const res = await fetch(API_ENDPOINTS.adminInquiriesList(p, search), {
-        headers: { Authorization: `Bearer ${auth.getToken()}`,
-                   "ngrok-skip-browser-warning": "true" },
+        headers: createHeaders(),
       });
       const data = await res.json();
  

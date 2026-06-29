@@ -3,6 +3,7 @@ import { Edit,  Megaphone, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
+import { createHeaders } from "../../config/header";
 
 interface Meta {
   current_page: number;
@@ -30,11 +31,6 @@ const keyValueColumns = [
 ];
 
 
-const authHeaders = () => ({
-  'Content-Type': 'application/json',
-  Authorization: `Bearer ${auth.getToken()}`,
-});
-
 export default function ContentManagement() {
   const [activeTab, setActiveTab] = useState<Tab>('promos');
   const [promos, setPromos] = useState<Promo[]>([]);
@@ -55,7 +51,7 @@ export default function ContentManagement() {
     setLoading(true);
     try {
       const response = await fetch(API_ENDPOINTS.adminPromos(page), {
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
+        headers: createHeaders(),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Unable to load promos.');
@@ -95,7 +91,7 @@ export default function ContentManagement() {
         editingPromo ? API_ENDPOINTS.adminPromo(editingPromo.id) : API_ENDPOINTS.adminPromos(),
         {
           method: editingPromo ? 'PATCH' : 'POST',
-          headers: authHeaders(),
+          headers: createHeaders(),
           body: JSON.stringify({ promo: promoFormData }),
         }
       );
@@ -114,7 +110,7 @@ export default function ContentManagement() {
     try {
       const response = await fetch(API_ENDPOINTS.adminPromo(id), {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
+        headers: createHeaders(),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Unable to delete promo.');

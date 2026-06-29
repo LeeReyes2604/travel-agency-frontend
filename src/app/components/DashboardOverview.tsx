@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { MessageSquare, Users, Package, TrendingUp, Calendar } from 'lucide-react';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
+import { createHeaders } from "../../config/header";
 
 type WeekPoint = { day: string; count: number };
 
@@ -29,7 +30,7 @@ export default function DashboardOverview() {
       try {
         const token = auth.getToken();
         const res = await fetch(API_ENDPOINTS.adminAnalytics(), {
-          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+          headers: createHeaders(),
         });
         if (!res.ok) return;
         const data = await res.json();

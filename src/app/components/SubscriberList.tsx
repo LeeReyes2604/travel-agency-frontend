@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
 import { useAdminSubscribers, Subscriber } from '../hooks/useAdminSubscribers';
+import { createHeaders } from "../../config/header";
 
 const formatSubscriberDate = (value: string | number | null) => {
   if (value === null || value === undefined || value === '') return '—';
@@ -54,9 +55,7 @@ export default function SubscriberList() {
 
       const response = await fetch(API_ENDPOINTS.adminSubscriber(id), {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: createHeaders(),
       });
 
       const data = await response.json();

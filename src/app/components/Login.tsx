@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from 'react-router';
 import { Lock, User } from 'lucide-react';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
+import { createHeadersNoAuth } from "../../config/header";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Login() {
     try {
       const response = await fetch(API_ENDPOINTS.login, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: createHeadersNoAuth(),
         body: JSON.stringify({ email, password }),
       });
 
