@@ -66,7 +66,8 @@ export default function InquiryManagement() {
     setError('');
     try {
       const res = await fetch(API_ENDPOINTS.adminInquiriesList(p, search), {
-        headers: { Authorization: `Bearer ${auth.getToken()}` },
+        headers: { Authorization: `Bearer ${auth.getToken()}`,
+                   "ngrok-skip-browser-warning": "true" },
       });
       const data = await res.json();
  
