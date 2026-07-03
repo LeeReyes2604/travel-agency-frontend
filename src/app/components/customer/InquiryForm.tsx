@@ -111,7 +111,7 @@ export default function InquiryForm() {
                 value={formData.phone_number}
                 onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
                 className="w-full pl-10 pr-4 py-2 bg-input-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring text-sm"
-                placeholder="+63 912 345 6789"
+                placeholder="09XXXXXXXXX"
               />
             </div>
           </div>
