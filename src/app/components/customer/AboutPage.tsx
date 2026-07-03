@@ -37,22 +37,19 @@ export default function AboutPage() {
 
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-card border border-border rounded-lg p-6 text-center">
-              <div className="text-4xl text-primary mb-2">10+</div>
-              <p className="text-muted-foreground">Years of Excellence</p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-6 text-center">
-              <div className="text-4xl text-primary mb-2">15K+</div>
-              <p className="text-muted-foreground">Happy Travelers</p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-6 text-center">
-              <div className="text-4xl text-primary mb-2">50+</div>
-              <p className="text-muted-foreground">Destinations</p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-6 text-center">
-              <div className="text-4xl text-primary mb-2">98%</div>
-              <p className="text-muted-foreground">Satisfaction Rate</p>
+          <div
+            className="rounded-xl overflow-hidden shadow-lg h-[500px] bg-center bg-cover"
+            style={{
+              backgroundImage: "url('https://img.sanishtech.com/u/3f0f3bb8d4aaff81777fd91040fcc10e.jpg')",
+            }}
+          >
+            <div className="w-full h-full bg-black/30 flex items-end p-8">
+              <div className="text-white">
+                <h3 className="text-3xl font-bold">Explore the World with Us</h3>
+                <p className="mt-2 text-white/90">
+                  Creating unforgettable travel experiences since 2017.
+                </p>
+              </div>
             </div>
           </div>
         </div>

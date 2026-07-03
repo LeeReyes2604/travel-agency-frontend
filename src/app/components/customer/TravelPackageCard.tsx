@@ -1,4 +1,4 @@
-import { MapPin, Users, DollarSign } from 'lucide-react';
+import { MapPin, Users, PhilippinePeso } from 'lucide-react';
 import { getImageSrc } from '../../../config/api';
 
 export interface TravelPackage {
@@ -50,7 +50,7 @@ export default function TravelPackageCard({ package: pkg, onViewDetails }: Props
               <>
                 <span className="text-xs text-muted-foreground">From</span>
                 <div className="flex items-center gap-1">
-                  <DollarSign className="w-4 h-4 text-primary" />
+                  <PhilippinePeso className="w-4 h-4 text-primary" />
                   <p className="text-xl text-primary">
                     ₱{parseFloat(pkg.base_price).toLocaleString()}
                   </p>

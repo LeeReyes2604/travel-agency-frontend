@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Users, DollarSign, User, Mail, Phone, MessageSquare, Send, ArrowLeft } from 'lucide-react';
+import { MapPin, Users, PhilippinePeso, User, Mail, Phone, MessageSquare, Send, ArrowLeft, LucidePhilippinePeso } from 'lucide-react';
 import { toast } from 'sonner';
 import { TravelPackage } from './TravelPackageCard';
 import { API_ENDPOINTS, getImageSrc } from '../../../config/api';
@@ -89,7 +89,7 @@ export default function TravelPackageModal({ package: pkg, onClose }: Props) {
                 </div>
                 {pkg.show_price && (
                   <div className="flex items-center gap-2 text-sm">
-                    <DollarSign className="w-4 h-4" />
+                    <PhilippinePeso className="w-4 h-4" />
                     <span>₱{parseFloat(pkg.base_price).toLocaleString()}</span>
                   </div>
                 )}
