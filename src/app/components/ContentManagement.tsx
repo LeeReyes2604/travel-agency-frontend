@@ -125,7 +125,7 @@ export default function ContentManagement() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="mb-2">Content Management</h1>
-        <p className="text-muted-foreground">Manage homepage promotions and public contact information</p>
+        <p className="text-muted-foreground">Manage homepage promotions</p>
       </div>
 
       <div className="flex gap-4 mb-6 border-b border-border">
