@@ -15,14 +15,14 @@ export default function Header() {
   return (
     <header className="bg-[#145889] border-b border-white/10 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-24">
           
           {/* --- UPDATED LOGO & TEXT SECTION --- */}
           <NavLink to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
             <img 
               src="https://cdn.corenexis.com/f/DurqoCE1E5t.png" 
               alt="Tripie Travel & Tours Logo" 
-              className="h-10 w-auto object-contain" 
+              className="h-24 w-auto object-contain" 
             />
             <span className="text-xl font-semibold text-white">Tripie Travel & Tours</span>
           </NavLink>
