@@ -6,19 +6,19 @@ import {
   Users,
   Package,
   FileText,
+  Settings,
   LogOut,
   Menu,
   X
 } from 'lucide-react';
-import { auth } from '../../config/auth';
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleLogout = () => {
-    auth.logout();
-    navigate('/admin');
+    localStorage.removeItem('isAuthenticated');
+    navigate('/');
   };
 
   const navItems = [
@@ -27,6 +27,7 @@ export default function DashboardLayout() {
     { icon: Users, label: 'Subscribers', path: '/dashboard/subscribers' },
     { icon: Package, label: 'Packages', path: '/dashboard/packages' },
     { icon: FileText, label: 'Content', path: '/dashboard/content' },
+    { icon: Settings, label: 'Account', path: '/dashboard/account' },
   ];
 
   return (

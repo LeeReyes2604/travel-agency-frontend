@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "Brunson";
+  src: url("/fonts/Brunson.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-brunson {
+  font-family: "Brunson", sans-serif;
+}

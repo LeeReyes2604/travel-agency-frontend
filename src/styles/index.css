@@ -1,3 +1,11 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+@font-face {
+  font-family: "Brunson";
+  src: url("/fonts/Brunson.ttf") format("truetype");
+}
+
+.font-brunson {
+  font-family: "Brunson", sans-serif;
+}

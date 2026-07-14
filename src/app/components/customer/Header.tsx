@@ -24,7 +24,7 @@ export default function Header() {
               alt="Tripie Travel & Tours Logo" 
               className="h-24 w-auto object-contain" 
             />
-            <span className="text-xl font-semibold text-white">Tripie Travel & Tours</span>
+           <span className="font-brunson text-3xl text-white"> Tripie Travel & Tour </span>
           </NavLink>
 
           {/* Desktop Navigation */}

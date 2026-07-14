@@ -3,7 +3,7 @@ import CustomerLayout from './components/customer/CustomerLayout';
 import HomePage from './components/customer/HomePage';
 import AboutPage from './components/customer/AboutPage';
 import PackagesPage from './components/customer/PackagesPage';
-import PackageDetailPage from './components/customer/PackageDetailPage';
+import BlogPage from './components/customer/BlogPage';
 import PartnershipPage from './components/customer/PartnershipPage';
 import ContactPage from './components/customer/ContactPage';
 import Login from './components/Login';
@@ -13,6 +13,7 @@ import InquiryManagement from './components/InquiryManagement';
 import SubscriberList from './components/SubscriberList';
 import PackageManagement from './components/PackageManagement';
 import ContentManagement from './components/ContentManagement';
+import AccountSettings from './components/AccountSettings';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -24,7 +25,8 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="packages" element={<PackagesPage />} />
-          <Route path="packages/:id" element={<PackageDetailPage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="partnership" element={<PartnershipPage />} />
           <Route path="contact" element={<ContactPage />} />
         </Route>
 
@@ -43,6 +45,7 @@ export default function App() {
           <Route path="subscribers" element={<SubscriberList />} />
           <Route path="packages" element={<PackageManagement />} />
           <Route path="content" element={<ContentManagement />} />
+          <Route path="account" element={<AccountSettings />} />
         </Route>
 
         {/* Fallback */}
