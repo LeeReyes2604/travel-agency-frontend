@@ -184,7 +184,9 @@ export default function InquiryForm() {
         <div>
           <label htmlFor="estimated_budget" className="block text-sm mb-2">Estimated Budget (₱)</label>
           <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-base text-lg">
+              ₱
+            </span>
             <input
               id="estimated_budget"
               type="number"
