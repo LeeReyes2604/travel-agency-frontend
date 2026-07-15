@@ -140,7 +140,7 @@ export default function PackageDetailPage() {
                       <>
                         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Starting from</p>
                         <p className="mt-2 text-3xl font-semibold text-primary">
-                          ₱{parseFloat(travelPackage.base_price).toLocaleString()}
+                          {parseFloat(travelPackage.base_price).toLocaleString()}
                         </p>
                       </>
                     )}
