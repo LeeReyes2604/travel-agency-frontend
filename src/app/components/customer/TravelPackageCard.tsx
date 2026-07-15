@@ -23,8 +23,13 @@ export default function TravelPackageCard({
   onViewDetails,
 }: Props) {
   return (
-    <div className="bg-card border border-border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex-shrink-0 w-72">
-      {/* Package Image */}
+    <div
+      className="bg-card border border-border rounded-xl overflow-hidden group flex-shrink-0 w-72 transition-all duration-300 hover:-translate-y-1"
+      style={{
+        boxShadow: "0 10px 25px rgba(0, 0, 0, 0.35)",
+      }}
+    >    
+  {/* Package Image */}
       <div className="relative h-48 overflow-hidden">
         {pkg.image_url ? (
           <img
