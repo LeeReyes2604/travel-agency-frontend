@@ -24,8 +24,7 @@ export default function TravelPackageCard({
 }: Props) {
   return (
     <div
-      className="bg-card border border-border rounded-xl overflow-hidden group flex-shrink-0 w-72 transition-all duration-300 hover:-translate-y-1"
-      style={{
+       className="bg-card border border-border rounded-xl overflow-hidden group flex-shrink-0 w-[36rem] transition-all duration-300 hover:-translate-y-1"      style={{
         boxShadow: "0 10px 25px rgba(0, 0, 0, 0.35)",
       }}
     >    
