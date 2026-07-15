@@ -15,6 +15,7 @@ import PackageManagement from './components/PackageManagement';
 import ContentManagement from './components/ContentManagement';
 import AccountSettings from './components/AccountSettings';
 import ProtectedRoute from './components/ProtectedRoute';
+import PackageDetailPage from './components/customer/PackageDetailPage';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="packages" element={<PackagesPage />} />
+          <Route path="packages/:id" element={<PackageDetailPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="partnership" element={<PartnershipPage />} />
           <Route path="contact" element={<ContactPage />} />
