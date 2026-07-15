@@ -18,9 +18,13 @@ interface Props {
   onViewDetails: (pkg: TravelPackage) => void;
 }
 
-export default function TravelPackageCard({ package: pkg, onViewDetails }: Props) {
+export default function TravelPackageCard({
+  package: pkg,
+  onViewDetails,
+}: Props) {
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-xl transition-shadow group flex-shrink-0 w-72">
+    <div className="bg-card border border-border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex-shrink-0 w-72">
+      {/* Package Image */}
       <div className="relative h-48 overflow-hidden">
         {pkg.image_url ? (
           <img
@@ -30,37 +34,48 @@ export default function TravelPackageCard({ package: pkg, onViewDetails }: Props
           />
         ) : (
           <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-sm">
-            No image
+            No Image Available
           </div>
         )}
       </div>
-      <div className="p-4">
-        <h3 className="mb-2 line-clamp-1">{pkg.title}</h3>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+
+      {/* Package Information */}
+      <div className="p-4 bg-[#ffcc00]">
+        <h3 className="mb-2 text-xl font-bold text-[#08558d] line-clamp-1">
+          {pkg.title}
+        </h3>
+
+        <div className="flex items-center gap-2 text-sm text-[#08558d] mb-2">
           <MapPin className="w-4 h-4 flex-shrink-0" />
           <span className="line-clamp-1">{pkg.destination}</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+
+        <div className="flex items-center gap-2 text-sm text-[#08558d] mb-4">
           <Users className="w-4 h-4 flex-shrink-0" />
-          <span>{pkg.number_of_travelers} travelers</span>
+          <span>{pkg.number_of_travelers} Travelers</span>
         </div>
+
         <div className="flex items-center justify-between">
           <div>
             {pkg.show_price && (
               <>
-                <span className="text-xs text-muted-foreground">From</span>
-                <div className="flex items-center gap-1">
-                  <PhilippinePeso className="w-4 h-4 text-primary" />
-                  <p className="text-xl text-primary">
+                <span className="text-xs uppercase tracking-wide text-[#08558d]/80">
+                  Starting From
+                </span>
+
+                <div className="flex items-center gap-1 mt-1">
+                  <PhilippinePeso className="w-4 h-4 text-[#08558d]" />
+                  <p className="text-xl font-bold text-[#08558d]">
                     {parseFloat(pkg.base_price).toLocaleString()}
                   </p>
                 </div>
               </>
             )}
           </div>
+
           <button
             onClick={() => onViewDetails(pkg)}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity text-sm"
+            className="px-4 py-2 bg-[#08558d] text-white rounded-lg hover:bg-[#06456f] transition-colors duration-300 text-sm font-semibold shadow-md"
           >
             View Details
           </button>
