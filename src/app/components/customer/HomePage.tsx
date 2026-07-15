@@ -162,7 +162,7 @@ export default function HomePage() {
       </div>
 
       {/* Inquiry Form Section */}
-      <div id="inquiry" className="bg-accent/30 py-16">
+      <div id="inquiry" className="py-16"style={{ backgroundColor: "#ffcc00" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
