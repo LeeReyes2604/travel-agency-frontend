@@ -1,5 +1,6 @@
 import { Target, Eye, Award, Users, Plane, Heart } from 'lucide-react';
 import sunsetImage from '../../../assets/images/sunset.jpg';
+import { Link } from 'react-router';
 
 export default function AboutPage() {
   return (
@@ -153,13 +154,13 @@ export default function AboutPage() {
           <p className="font-poppins font-semibold text-lg text-[#145889] mb-8">
             Let our expert team help you plan the perfect vacation tailored to your dreams and budget.
           </p>
-          <a
-              href="#inquiry"
-              className="font-poppins inline-block px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg shadow-md"
-              style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
-            >
-              Get Your Free Quote
-            </a>
+          <Link
+            to="/#inquiry"
+            className="font-poppins inline-block px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg shadow-md"
+            style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
+          >
+            Get Your Free Quote
+          </Link>
         </div>
       </div>
     </div>
