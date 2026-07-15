@@ -5,6 +5,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .font-brunson {
   font-family: "Brunson", sans-serif;
+}
+
+.font-poppins {
+  font-family: "Poppins", sans-serif;
 }

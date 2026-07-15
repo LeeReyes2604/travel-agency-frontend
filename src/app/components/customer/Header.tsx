@@ -35,7 +35,7 @@ export default function Header() {
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `transition-colors ${isActive 
+                  `font-poppins transition-colors ${isActive 
                     ? 'text-white font-semibold' 
                     : 'text-white/80 hover:text-white'
                   }`
