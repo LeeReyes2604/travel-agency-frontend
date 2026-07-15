@@ -28,8 +28,8 @@ export default function ContactPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl mb-6 text-[#145889] font-semibold">Contact Us</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="font-brunson text-5xl font-semibold mb-4 text-[#145889] tracking-wide">Contact Us</h1>
+          <p className="font-poppins text-lg text-[#145889] max-w-3xl mx-auto">
             Have questions? We're here to help! Reach out to our friendly team and we'll respond as soon as possible.
           </p>
         </div>
@@ -42,8 +42,8 @@ export default function ContactPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-chart-1/10 rounded-full mb-4">
               <MapPin className="w-7 h-7 text-chart-1" />
             </div>
-            <h3 className="text-[#145889] mb-2 font-semibold">Office Address</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Office Address</h3>
+            <p className="font-poppins space-y-4 text-[#145889] text-sm">
              1st Level One Mall Valenzuela Lower Ground Floor
              Puregold Paso de Blas Valenzuela city, Valenzuela, Philippines
             </p>
@@ -53,8 +53,8 @@ export default function ContactPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-chart-2/10 rounded-full mb-4">
               <Phone className="w-7 h-7 text-chart-2" />
             </div>
-            <h3 className="text-[#145889] mb-2 font-semibold">Phone Numbers</h3>
-            <p className="text-muted-foreground text-sm">               
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Phone Numbers</h3>
+            <p className="font-poppins space-y-4 text-[#145889] text-sm">               
               0917 134 2516
             </p>
           </div>
@@ -63,8 +63,8 @@ export default function ContactPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-chart-3/10 rounded-full mb-4">
               <Mail className="w-7 h-7 text-chart-3" />
             </div>
-            <h3 className="text-[#145889] mb-2 font-semibold">Email Addresses</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Email Address</h3>
+            <p className="font-poppins space-y-4 text-[#145889] text-sm">
               tripietravelandtours@gmail.com
             </p>
           </div>
@@ -73,8 +73,8 @@ export default function ContactPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-chart-4/10 rounded-full mb-4">
               <Clock className="w-7 h-7 text-chart-4" />
             </div>
-            <h3 className="text-[#145889] mb-2 font-semibold">Business Hours</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Business Hours</h3>
+            <p className="font-poppins space-y-4 text-[#145889] text-sm">
               Monday - Sunday<br />
               10:00 AM - 9:00 PM EST<br />
               <br />
@@ -86,8 +86,8 @@ export default function ContactPage() {
         {/* Centralized Visit Our Office Section */}
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-6">
-            <h2 className="text-3xl mb-3 text-[#145889] font-semibold">Visit Our Office</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <h2 className="font-brunson text-5xl font-bold mb-4 text-[#145889] tracking-wide">Visit Our Office</h2>
+            <p className="font-poppins space-y-4 text-[#145889]">
               We'd love to meet you in person! Drop by our office or schedule an appointment.
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function ContactPage() {
           <div className="bg-card border border-border rounded-lg p-6 max-w-md mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <MessageSquare className="w-6 h-6 text-[#145889]" />
-              <h3 className="text-[#145889] font-semibold">Quick Help</h3>
+              <h3 className="font-poppins font-bold space-y-4 text-[#145889]">Quick Help</h3>
             </div>
             <div className="space-y-3">
               <a href="/#inquiry" className="block text-muted-foreground hover:text-[#145889] transition-colors text-sm">
