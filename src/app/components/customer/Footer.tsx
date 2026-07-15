@@ -52,9 +52,9 @@ export default function Footer() {
               <img 
                 src="https://cdn.corenexis.com/f/DurqoCE1E5t.png" 
                 alt="Tripie Travel & Tours Logo" 
-                className="h-10 w-auto object-contain" 
+                className="h-20 w-auto object-contain" 
               />
-              <span className="text-xl font-semibold">Tripie Travel & Tours</span>
+              <span className="font-brunson text-xl tracking-wide">Tripie Travel & Tours</span>
             </div>
             <p className="text-white/80 mb-4">
               Your trusted partner for unforgettable travel experiences around the world.

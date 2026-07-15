@@ -58,15 +58,19 @@ export default function HomePage() {
         />
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-6xl text-primary-foreground mb-6">
+            <h1
+              className="font-brunson font-normal text-6xl md:text-7xl text-[#ffcc00] mb-6"
+              style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
+            >
               Your Dream Vacation Starts Here
             </h1>
-            <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8">
+            <p className="font-poppins font-semibold text-xl md:text-2xl text-primary-foreground/90 mb-8"  style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}>
               Discover unforgettable destinations with Tripie Travel & Tours
             </p>
             <a
               href="#inquiry"
-              className="inline-block px-8 py-4 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors text-lg shadow-md"
+              className="font-poppins inline-block px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg shadow-md"
+              style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
             >
               Get Your Free Quote
             </a>
@@ -105,8 +109,8 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-4xl mb-4 text-[#145889]">Tour Packages</h2>
-            <p className="text-xl text-muted-foreground">
+            <h2 className="font-brunson text-4xl mb-4 text-[#145889]">Tour Packages</h2>
+            <p className="font-poppins text-xl text-muted-foreground">
               Explore our most popular travel packages curated just for you
             </p>
           </div>
@@ -161,8 +165,8 @@ export default function HomePage() {
       <div id="inquiry" className="bg-accent/30 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
-            <p className="text-xl text-[#145889]/80">
+            <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
+            <p className="font-poppins text-lg text-[#145889]/80">
               Fill out our quick inquiry form and let us create a personalized travel experience for you
             </p>
           </div>
@@ -177,7 +181,7 @@ export default function HomePage() {
       {/* Why Choose Us */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl mb-4 text-[#145889]">Why Choose Tripie Travel & Tours?</h2>
+          <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Why Choose Tripie Travel & Tours?</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">

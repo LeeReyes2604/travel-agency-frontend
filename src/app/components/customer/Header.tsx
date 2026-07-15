@@ -18,7 +18,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-24">
           
           {/* --- UPDATED LOGO & TEXT SECTION --- */}
-          <NavLink to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+          <NavLink to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80"  style={{ textShadow: "0 0 10px rgba(0, 0, 0, 0.6)" }}>
             <img 
               src="https://cdn.corenexis.com/f/DurqoCE1E5t.png" 
               alt="Tripie Travel & Tours Logo" 
@@ -35,9 +35,9 @@ export default function Header() {
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `font-brunson tracking-widest transition-colors ${isActive 
-                    ? 'text-white font-semibold' 
-                    : 'text-white/80 hover:text-white'
+                  `font-brunson tracking-widest transition-all duration-300 ${isActive 
+                    ? 'text-white text-shadow' 
+                    : 'text-white/80 hover:text-white hover:text-shadow'
                   }`
                 }
               >
