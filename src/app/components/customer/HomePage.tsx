@@ -79,26 +79,30 @@ export default function HomePage() {
       </div>
 
       {promos.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {promos.map((promo, index) => (
-              <div
-                key={promo.id}
-                className="bg-[#ffcc00] p-6 rounded-lg border border-[#e6b800] shadow-lg"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {promos.map((promo) => (
+            <div
+              key={promo.id}
+              className="p-6 rounded-lg shadow-lg"
+              style={{ backgroundColor: "#ffcc00" }}
+            >
+              <h3
+                className="font-brunson text-3xl font-bold mb-2 leading-tight"
+                style={{ color: "#08558d" }}
               >
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <TrendingUp className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="mb-2">{promo.title}</h3>
-                    <p className="text-muted-foreground">{promo.details}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                {promo.title}
+              </h3>
+              <p
+                className="font-poppins text-base font-medium"
+                style={{ color: "#08558d" }}
+              >
+                {promo.description}
+              </p>
+            </div>
+          ))}
         </div>
+      </div>
       )}
 
       {/* Travel Packages Swiper */}
