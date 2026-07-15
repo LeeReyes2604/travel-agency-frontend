@@ -24,7 +24,7 @@ export default function Header() {
               alt="Tripie Travel & Tours Logo" 
               className="h-24 w-auto object-contain" 
             />
-           <span className="font-brunson text-3xl text-white"> Tripie Travel & Tour </span>
+           <span className="font-brunson text-3xl text-white tracking-wide"> Tripie Travel & Tours </span>
           </NavLink>
 
           {/* Desktop Navigation */}
@@ -35,7 +35,7 @@ export default function Header() {
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `font-poppins transition-colors ${isActive 
+                  `font-brunson tracking-widest transition-colors ${isActive 
                     ? 'text-white font-semibold' 
                     : 'text-white/80 hover:text-white'
                   }`
