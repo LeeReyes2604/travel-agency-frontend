@@ -110,7 +110,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="font-brunson text-4xl mb-4 text-[#145889]">Tour Packages</h2>
-            <p className="font-poppins text-xl text-muted-foreground">
+            <p className="font-poppins text-xl space-y-4 text-[#145889]">
               Explore our most popular travel packages curated just for you
             </p>
           </div>
@@ -162,7 +162,7 @@ export default function HomePage() {
       </div>
 
       {/* Inquiry Form Section */}
-      <div id="inquiry" className="py-16"style={{ backgroundColor: "#ffcc00" }}>
+      <div id="inquiry" className="bg-accent/30 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
@@ -188,8 +188,8 @@ export default function HomePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-1/10 rounded-full mb-4">
               <Star className="w-8 h-8 text-chart-1" />
             </div>
-            <h3 className="text-[#145889] mb-3 font-medium">Expert Travel Planners</h3>
-            <p className="text-muted-foreground">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Expert Travel Planners</h3>
+            <p className="font-poppins space-y-4 text-[#145889]">
               Our experienced team has been creating unforgettable journeys for over 10 years
             </p>
           </div>
@@ -197,8 +197,8 @@ export default function HomePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-2/10 rounded-full mb-4">
               <TrendingUp className="w-8 h-8 text-chart-2" />
             </div>
-            <h3 className="text-[#145889] mb-3 font-medium">Best Price Guarantee</h3>
-            <p className="text-muted-foreground">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">Best Price Guarantee</h3>
+            <p className="font-poppins space-y-4 text-[#145889]">
               We offer competitive prices and exclusive deals you won't find anywhere else
             </p>
           </div>
@@ -206,8 +206,8 @@ export default function HomePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-chart-4/10 rounded-full mb-4">
               <MapPin className="w-8 h-8 text-chart-4" />
             </div>
-            <h3 className="text-[#145889] mb-3 font-medium">24/7 Support</h3>
-            <p className="text-muted-foreground">
+            <h3 className="font-poppins font-bold leading-8 text-[#145889]">24/7 Support</h3>
+            <p className="font-poppins space-y-4 text-[#145889]">
               Our support team is always available to assist you before, during, and after your trip
             </p>
           </div>
