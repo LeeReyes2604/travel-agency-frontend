@@ -84,11 +84,7 @@ export default function HomePage() {
             {promos.map((promo, index) => (
               <div
                 key={promo.id}
-                className={`${
-                  index % 2 === 0
-                    ? 'bg-gradient-to-r from-chart-1/20 to-chart-2/20'
-                    : 'bg-gradient-to-r from-chart-3/20 to-chart-4/20'
-                } p-6 rounded-lg border border-border shadow-lg`}
+                className="bg-[#ffcc00] p-6 rounded-lg border border-[#e6b800] shadow-lg"
               >
                 <div className="flex items-start gap-3">
                   <div className="p-2 bg-primary/10 rounded-lg">
