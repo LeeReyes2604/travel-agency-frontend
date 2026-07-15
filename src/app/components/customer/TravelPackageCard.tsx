@@ -52,7 +52,7 @@ export default function TravelPackageCard({ package: pkg, onViewDetails }: Props
                 <div className="flex items-center gap-1">
                   <PhilippinePeso className="w-4 h-4 text-primary" />
                   <p className="text-xl text-primary">
-                    ₱{parseFloat(pkg.base_price).toLocaleString()}
+                    {parseFloat(pkg.base_price).toLocaleString()}
                   </p>
                 </div>
               </>
