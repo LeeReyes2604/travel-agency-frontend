@@ -85,10 +85,10 @@ export default function HomePage() {
             <div
               key={promo.id}
               className="p-6 rounded-lg shadow-lg"
-              style={{ backgroundColor: "#ffcc00" }}
+              style={{ backgroundColor: "#ffcc00", boxShadow: "0 8px 20px rgba(0, 0, 0, 0.5)", }}
             >
               <h3
-                className="font-brunson text-3xl font-bold mb-2 leading-tight"
+                className="font-brunson text-3xl text-center font-bold mb-2 leading-tight tracking-wide"
                 style={{ color: "#08558d" }}
               >
                 {promo.title}
@@ -97,7 +97,7 @@ export default function HomePage() {
                 className="font-poppins text-base font-medium"
                 style={{ color: "#08558d" }}
               >
-                {promo.description}
+                {promo.details}
               </p>
             </div>
           ))}
