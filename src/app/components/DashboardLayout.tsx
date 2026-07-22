@@ -55,7 +55,7 @@ export default function DashboardLayout() {
       >
         <div className="p-4 sm:p-6 border-b border-sidebar-border flex items-center justify-between">
           {(sidebarExpanded || mobileSidebarOpen) && (
-            <h2 className="text-sidebar-foreground">Tour Admin</h2>
+            <h2 className="text-sidebar-foreground">Tripie Admin</h2>
           )}
           {/* Desktop collapse toggle */}
           <button

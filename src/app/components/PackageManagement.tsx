@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, MapPin, DollarSign, Users, ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Plus, Edit, Trash2, MapPin, Users, ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_ENDPOINTS } from '../../config/api';
 import { auth } from '../../config/auth';
 import { createHeaders } from "../../config/header";
@@ -270,7 +270,6 @@ export default function PackageManagement() {
                     </div>
                     {pkg.show_price && (
                       <div className="flex items-center gap-2 text-sm">
-                        <DollarSign className="w-4 h-4 text-muted-foreground" />
                         <span className="text-lg">₱{parseFloat(pkg.base_price).toLocaleString()}</span>
                       </div>
                     )}
