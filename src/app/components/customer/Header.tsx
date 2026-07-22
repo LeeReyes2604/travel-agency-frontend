@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import tripieLogo from '../../../assets/images/tripie-logo.png';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function Header() {
           {/* --- UPDATED LOGO & TEXT SECTION --- */}
           <NavLink to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80"  style={{ textShadow: "0 0 10px rgba(0, 0, 0, 0.6)" }}>
             <img 
-              src="https://cdn.corenexis.com/f/DurqoCE1E5t.png" 
+              src={tripieLogo}
               alt="Tripie Travel & Tours Logo" 
               className="h-24 w-auto object-contain" 
             />

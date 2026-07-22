@@ -3,6 +3,7 @@ import { Mail, Facebook, Instagram } from 'lucide-react';
 import { toast } from 'sonner';
 import { API_ENDPOINTS } from '../../../config/api';
 import { createHeadersNoAuth } from '../../../config/header';
+import tripieLogo from '../../../assets/images/tripie-logo.png';
 
 export default function Footer() {
   const [name, setName] = useState('');
@@ -50,7 +51,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img 
-                src="https://cdn.corenexis.com/f/DurqoCE1E5t.png" 
+                src={tripieLogo}
                 alt="Tripie Travel & Tours Logo" 
                 className="h-20 w-auto object-contain" 
               />

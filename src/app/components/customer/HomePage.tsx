@@ -6,6 +6,7 @@ import TravelPackageCard from './TravelPackageCard';
 import { useTravelPackages } from '../../hooks/useTravelPackages';
 import { API_ENDPOINTS } from '../../../config/api';
 import { createHeadersNoAuth } from '../../../config/header';
+import homepageBg from '../../../assets/images/homepage-bg.jpg';
 
 interface Promo {
   id: number;
@@ -52,8 +53,7 @@ export default function HomePage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
-            backgroundImage:
-              'url(https://cdn.corenexis.com/f/2DyzVy6dPTl.jpg)',
+            backgroundImage: `url(${homepageBg})`,
           }}
         />
         <div className="relative h-full flex items-center justify-center text-center px-4">
