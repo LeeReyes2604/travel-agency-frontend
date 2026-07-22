@@ -57,7 +57,7 @@ export default function PartnershipPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl mb-6">Partnership Opportunities</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl mb-6">Partnership Opportunities</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Grow your business with Tripie Travel & Tours. We're always looking for great partners to enhance our travelers' experiences.
           </p>
@@ -67,7 +67,7 @@ export default function PartnershipPage() {
       {/* Partnership Types */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl mb-4">Partnership Programs</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4">Partnership Programs</h2>
           <p className="text-xl text-muted-foreground">
             Choose the partnership model that fits your business best
           </p>
@@ -103,7 +103,7 @@ export default function PartnershipPage() {
       <div className="bg-accent/30 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl mb-4">Why Partner With Us?</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4">Why Partner With Us?</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -140,7 +140,7 @@ export default function PartnershipPage() {
       {/* Partnership Inquiry Form */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-8">
-          <h2 className="text-4xl mb-4">Start Your Partnership Journey</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-4">Start Your Partnership Journey</h2>
           <p className="text-xl text-muted-foreground">
             Fill out the form below and our partnership team will get in touch with you
           </p>

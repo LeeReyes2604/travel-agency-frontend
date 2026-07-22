@@ -28,7 +28,7 @@ export default function ContactPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-brunson text-5xl font-semibold mb-4 text-[#145889] tracking-wide">Contact Us</h1>
+          <h1 className="font-brunson text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 text-[#145889] tracking-wide">Contact Us</h1>
           <p className="font-poppins text-lg text-[#145889] max-w-3xl mx-auto">
             Have questions? We're here to help! Reach out to our friendly team and we'll respond as soon as possible.
           </p>
@@ -86,7 +86,7 @@ export default function ContactPage() {
         {/* Centralized Visit Our Office Section */}
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-6">
-            <h2 className="font-brunson text-5xl font-bold mb-4 text-[#145889] tracking-wide">Visit Our Office</h2>
+            <h2 className="font-brunson text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-[#145889] tracking-wide">Visit Our Office</h2>
             <p className="font-poppins space-y-4 text-[#145889]">
               We'd love to meet you in person! Drop by our office or schedule an appointment.
             </p>

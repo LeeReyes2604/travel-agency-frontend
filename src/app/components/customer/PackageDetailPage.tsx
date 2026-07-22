@@ -132,7 +132,7 @@ export default function PackageDetailPage() {
               <div className="rounded-[30px] border border-border bg-card p-8 shadow-sm">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <h1 className="text-4xl font-semibold mb-2">{travelPackage.title}</h1>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">{travelPackage.title}</h1>
                     <p className="text-muted-foreground">{travelPackage.destination}</p>
                   </div>
                   <div className="rounded-3xl bg-primary/10 px-5 py-3 text-right">

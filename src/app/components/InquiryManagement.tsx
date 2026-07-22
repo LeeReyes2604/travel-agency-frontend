@@ -395,7 +395,7 @@ export default function InquiryManagement() {
                   <p>{selectedInquiry.full_name}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm text-muted-foreground">Email</label>
                     <div className="flex items-center gap-2">
@@ -412,7 +412,7 @@ export default function InquiryManagement() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm text-muted-foreground">Destination</label>
                     <div className="flex items-center gap-2">
@@ -429,7 +429,7 @@ export default function InquiryManagement() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm text-muted-foreground">Departure Date</label>
                     <div className="flex items-center gap-2">

@@ -49,7 +49,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-[600px] bg-gradient-to-br from-primary/90 to-primary/70">
+      <div className="relative h-[500px] sm:h-[550px] md:h-[600px] bg-gradient-to-br from-primary/90 to-primary/70">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
@@ -59,17 +59,17 @@ export default function HomePage() {
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div className="max-w-4xl">
             <h1
-              className="font-brunson font-normal text-6xl md:text-7xl text-[#ffcc00] mb-6"
+              className="font-brunson font-normal text-3xl xs:text-4xl sm:text-5xl md:text-7xl text-[#ffcc00] mb-4 sm:mb-6"
               style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
             >
               Your Dream Vacation Starts Here
             </h1>
-            <p className="font-poppins font-semibold text-xl md:text-2xl text-primary-foreground/90 mb-8"  style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}>
+            <p className="font-poppins font-semibold text-base sm:text-xl md:text-2xl text-primary-foreground/90 mb-6 sm:mb-8"  style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}>
               Discover unforgettable destinations with Tripie Travel & Tours
             </p>
             <a
               href="#inquiry"
-              className="font-poppins inline-block px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg shadow-md"
+              className="font-poppins inline-block px-6 py-3 sm:px-8 sm:py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-base sm:text-lg shadow-md"
               style={{ textShadow: "0 4px 10px rgba(0, 0, 0, 0.6)" }}
             >
               Get Your Free Quote
@@ -107,14 +107,14 @@ export default function HomePage() {
 
       {/* Travel Packages Swiper */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
           <div>
-            <h2 className="font-brunson text-4xl mb-4 text-[#145889]">Tour Packages</h2>
-            <p className="font-poppins text-xl space-y-4 text-[#145889]">
+            <h2 className="font-brunson text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-4 text-[#145889]">Tour Packages</h2>
+            <p className="font-poppins text-base sm:text-xl text-[#145889]">
               Explore our most popular travel packages curated just for you
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 self-end sm:self-auto">
             <button
               onClick={scrollLeft}
               className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors text-[#145889]"
@@ -151,11 +151,12 @@ export default function HomePage() {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {packages.map((pkg) => (
-              <TravelPackageCard
-                key={pkg.id}
-                package={pkg}
-                onViewDetails={() => navigate(`/packages/${pkg.id}`)}
-              />
+              <div key={pkg.id} className="w-[85vw] xs:w-72 sm:w-80 md:w-96 flex-shrink-0">
+                <TravelPackageCard
+                  package={pkg}
+                  onViewDetails={() => navigate(`/packages/${pkg.id}`)}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -165,7 +166,7 @@ export default function HomePage() {
       <div id="inquiry" className="bg-accent/30 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
+            <h2 className="font-poppins font-black text-2xl sm:text-3xl md:text-4xl mb-4 text-[#145889]">Plan Your Perfect Trip</h2>
             <p className="font-poppins text-lg text-[#145889]/80">
               Fill out our quick inquiry form and let us create a personalized travel experience for you
             </p>
@@ -181,7 +182,7 @@ export default function HomePage() {
       {/* Why Choose Us */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="font-poppins font-black text-4xl mb-4 text-[#145889]">Why Choose Tripie Travel & Tours?</h2>
+          <h2 className="font-poppins font-black text-2xl sm:text-3xl md:text-4xl mb-4 text-[#145889]">Why Choose Tripie Travel & Tours?</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">

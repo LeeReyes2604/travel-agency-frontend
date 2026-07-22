@@ -8,7 +8,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-brunson text-5xl font-semibold mb-4 text-[#145889] tracking-wide">About Tripie Travel & Tours</h1>
+          <h1 className="font-brunson text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 text-[#145889] tracking-wide">About Tripie Travel & Tours</h1>
           <p className="font-poppins text-lg text-[#145889] max-w-3xl mx-auto">
             Creating unforgettable travel experiences and turning your dream vacations into reality since 2017
           </p>
@@ -19,7 +19,7 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="font-brunson text-4xl font-semibold mb-4 text-[#145889] tracking-wide">Our Story</h2>
+            <h2 className="font-brunson text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 text-[#145889] tracking-wide">Our Story</h2>
             <div className="font-poppins text-justify text-[#145889]">
               <p> Tripie Travel and Tours was established and registered as a business in
               September 2017 due to growing demands. In 2019, we kept moving forward
@@ -63,7 +63,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-[#ffcc00] border border-[#e6b800] rounded-lg p-8 shadow-xl">
               <div className="flex items-center gap-3 mb-4">
-                <h3 className="font-poppins text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Mission</h3>
+                <h3 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Mission</h3>
               </div>
               <p className="font-poppins text-justify text-[#145889]">
                 We make great efforts to achieve or obtain to be the most professional and customer amenable travel consultants by using our knowledge, experience and contacts in order to serve our customers with tailormade solutions to all of your holiday needs. And be the world' s most trusted and innovative travel management company.
@@ -71,7 +71,7 @@ export default function AboutPage() {
             </div>
             <div className="bg-[#ffcc00] border border-[#e6b800] rounded-lg p-8 shadow-xl">
               <div className="flex items-center gap-3 mb-4">
-                <h3 className="font-poppins text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Vision</h3>
+                <h3 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Vision</h3>
               </div>
               <p className="font-poppins text-justify text-[#145889]">
                 Helping people and companies travel smart and achieve more. Serving our customer, searching their entire satisfaction and providing touristic services of quality, committing to the social, cultural and environmental reality of our country.
@@ -84,7 +84,7 @@ export default function AboutPage() {
       {/* Core Values */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h2 className="font-brunson text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Core Values</h2>
+          <h2 className="font-brunson text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-[#145889] tracking-wide">Our Core Values</h2>
           <p className="font-poppins space-y-4 text-[#145889]">
             The principles that guide everything we do
           </p>
@@ -150,7 +150,7 @@ export default function AboutPage() {
       {/* Call to Action */}
       <div className="bg-[#ffcc00] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-poppins font-bold text-4xl text-[#145889] mb-8">Ready to Start Your Journey?</h2>
+          <h2 className="font-poppins font-bold text-2xl sm:text-3xl md:text-4xl text-[#145889] mb-8">Ready to Start Your Journey?</h2>
           <p className="font-poppins font-semibold text-lg text-[#145889] mb-8">
             Let our expert team help you plan the perfect vacation tailored to your dreams and budget.
           </p>

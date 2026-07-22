@@ -10,7 +10,7 @@ export default function PackagesPage() {
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-brunson text-5xl font-semibold mb-4 text-[#145889] tracking-wide">Tour Packages</h1>
+          <h1 className="font-brunson text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 text-[#145889] tracking-wide">Tour Packages</h1>
           <p className="font-poppins text-lg text-[#145889] max-w-3xl mx-auto">
            Browse our available travel packages and choose the one that matches your next adventure.
            Send us an inquiry, and we'll help you plan your perfect trip.

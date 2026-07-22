@@ -70,7 +70,7 @@ export default function BlogPage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/20 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl mb-6">Travel Blog & News</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl mb-6">Travel Blog & News</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Expert travel tips, destination guides, packing advice, and the latest travel news
           </p>
@@ -159,7 +159,7 @@ export default function BlogPage() {
       {/* Newsletter CTA */}
       <div className="bg-primary text-primary-foreground py-16 mt-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl mb-6">Never Miss a Travel Tip</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-6">Never Miss a Travel Tip</h2>
           <p className="text-xl mb-8 text-primary-foreground/90">
             Subscribe to our newsletter and get the latest travel guides, tips, and exclusive deals delivered to your inbox.
           </p>
